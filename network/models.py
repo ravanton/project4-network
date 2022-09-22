@@ -36,4 +36,7 @@ class Post(models.Model):
             "created_date" :self.created_date.strftime("%b %#d %Y, %#1:%M %p"),
             "creator_id": self.creator.id,
             "creator_username": self.creator.user.username,
+            "likes": self.likes.count(),
+            "liked": not user.is_anonymous and self in Profile.objects.filter(user=usr).first().get_all_liked.posts.all(),
+            "editable": self.creator.user == user
         }
