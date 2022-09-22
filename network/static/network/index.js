@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     load.posts("",1);
 });
+
 function load_posts(addon,page){
     if(addon.includes("?")) {
         addon += `&page = ${page}`;
@@ -17,14 +18,13 @@ function load_posts(addon,page){
         document.querySelector('#profile').style.display = 'none';
         addon += `?page = ${page}`;
     }
-     console.log(`access ${addon}`);
-     fetch(`/load ${addon}`);
-     .then(response => response.jsone())
-     .then(response => {
+    console.log(`access ${addon}`);
+    fetch(`/load ${addon}`)    
+    .then(response => response.jsone())
+    .then(response => {
         document.getElementById('post').innerHTML ="";
         build_paginator(addon, page, response.num_pages);
+        response.posts.forEach(post => build.post(post));
+    })
 
-        }
-
-    }
 }
