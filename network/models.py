@@ -20,3 +20,20 @@ class Profile(models.Model):
         }
     def __str__(self):
         followers_str = ""
+        for follower in self.followers.all():
+            followers_str = " " + follower.username
+        return f"{self.user.username} (id {self.user.id}) - followed by {followers_str}"
+class Post(models.Model):
+    content = models.CharField(max_length = 280)
+    created_date  = models.DateTimeField(default = timezone.now)
+    creator = models.ForeignKey(Profile, on_delete = models.CASCADE, related_name = "get_all_posts")
+    likes = models.ManyToManyField(Profile, blank = True, related_name = "get_all_liked_posts")
+    
+    def serialize(self, user):
+        return {
+            "id": self.id,
+            "content": self.content,
+            "created_date" :self.created_date.strftime("%b %#d %Y, %#1:%M %p"),
+            "creator_id": self.creator.id,
+            "creator_username": self.creator.user.username,
+        }
