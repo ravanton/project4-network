@@ -28,3 +28,8 @@ function load_posts(addon,page){
     })
 
 }
+
+function build_paginator(addon, page,num_pages){
+    page_list = document.getElementById('paginator');
+    page.list.innerHTML = "";
+}
