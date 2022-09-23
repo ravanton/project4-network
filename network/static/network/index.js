@@ -33,3 +33,23 @@ function build_paginator(addon, page,num_pages){
     page_list = document.getElementById('paginator');
     page.list.innerHTML = "";
 }
+function build_post(post){
+    const post_card = document.createElement('div');
+    post_card.className = "card col col-6";
+
+    const header = document.createElement('div');
+    header.className = "card-header profile";
+    header.innerHTML = post.creator_username;
+    post_card.append(header);
+    header.addEventListener('click', () => show_profile(post.creator_id));
+
+    const card_body = document.createElement('div');
+    card_body.className = "card-body";
+    card_body.id =  `post_body_${post.id}`;
+
+    const text = document.createElement('p');
+    text.className = "card-text";
+    text.id = `content_${post.id}`;
+    text.innerHTML = post.content;
+    card_body.append(text);
+}
