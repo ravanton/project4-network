@@ -87,3 +87,7 @@ def paginated_posts(request,posts):
         "num_pages": paginator.num_pages
         }
         , safe=False)
+
+def profile(request,user_id):
+    profile = Profile.object.filter(id=user_id).first()
+    return Jsonresponse(profile.serialize(request.user,status = 200))

@@ -32,6 +32,22 @@ function load_posts(addon,page){
 function build_paginator(addon, page,num_pages){
     page_list = document.getElementById('paginator');
     page.list.innerHTML = "";
+
+    const previous = document.createElement('li');
+    if(page==1){
+        previous.className = "page-item disabled";
+
+    }else {
+        previous.className = "page-item ";
+        previous.addEventListener('click', () => load_posts(addon,page-1));
+    }
+    const page_a_previous = document.createElement('a');
+    page_a_previous.className="page-link";
+
+    page_a_previous.href="#";
+    page_a_previous.innerHTML="Previous";
+
+
 }
 
 function build_post(post){
