@@ -61,3 +61,12 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+@login_required
+
+def load_followed_posts(request):
+    followed_profiles = request.user.get_followed_profiles.all()
+    print(followed_profiles)
+    posts = Post.objects.filter(creator__in = followed_profiles).all()
+    return paginated_posts(request,posts)
+
