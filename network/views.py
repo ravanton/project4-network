@@ -70,3 +70,20 @@ def load_followed_posts(request):
     posts = Post.objects.filter(creator__in = followed_profiles).all()
     return paginated_posts(request,posts)
 
+def load_posts(request):
+    profile = request.GET.get("profile", None)
+    if(profile):
+        post = Post.objects.filter(creator=profile).all()
+    else:
+        posts = Post.objects.all()
+    return paginated_posts(request,posts)
+
+def paginated_posts(request,posts):
+    posts = posts.order_by("-created_date").all()
+    paginator = Paginator(post,10)
+    page_obj = paginator.get_page(request,GET["page"])
+    return JsonResponse({
+        "post": [post.serialize(request.user) for post in page_obj],
+        "num_pages": paginator.num_pages
+        }
+        , safe=False)
