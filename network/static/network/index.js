@@ -63,10 +63,26 @@ function build_paginator(addon, page,num_pages){
         page_a.href="#";
         page_a.innerHTML = item;
         page_icon.append(page_a);
-        
+
+        page_list.append(page_icon);
 
 
     }
+    const next = document.createElement('li');
+    if(page==num_pages){
+        next.className="page-item disabled";
+
+    }else {
+        next.className="page-item ";
+        next.addEventListener('click', () => load_posts(addon,page+1));
+    }
+    const page_a_next = document.createElement('a');
+    page_a_next.className="page-link";
+    page_a_next.href="#";
+    page_a_next.innerHTML="Next";
+    next.append(page_a_next);
+    page_list.append(next);
+    
 
 }
 
