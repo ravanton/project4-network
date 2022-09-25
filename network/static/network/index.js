@@ -128,7 +128,26 @@ function build_post(post){
         like_icon.addEventListener('click', () => force_login());
     }
     likes_row.append(like_icon);
-}
+
+    const likes = document.createElement('div');
+    likes.id = `likes-amount-${post.id}`;
+    likes.className = "card-text likes col-auto";
+    likes.innerHTML = post.likes;
+    likes_row.append(likes);
+
+    const likes_text = document.createElement('div');
+    likes_text.className = "card-text likes_text col-auto";
+    likes_text.innerHTML = "like(s)";
+    likes_row.append(likes_text);
+
+    const date = document.createElement('div');
+    date.className = "blockquote-footer col-auto";
+    date.innerHTML = post.created_date;
+    likes_row.append(date);
+
+    
+
+ }
 
 function show_profile(creator_id){
     load_posts(`?profile=${creator_id}`,1);
