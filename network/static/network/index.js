@@ -105,6 +105,29 @@ function build_post(post){
     text.id = `content_${post.id}`;
     text.innerHTML = post.content;
     card_body.append(text);
+
+    const likes_row = document.createElement('div');
+
+    likes_row.id = `likes_row_${post.id}`;
+    likes_row.className = "row align-item-center";
+
+    const likes_icon = document.createElement('i');
+    likes_row.id = `like_icon-${post.id}`;
+    let heart_bg;
+    if(post.liked) {
+        heart_bg="";
+
+    }else {
+        heart_bg="-empty";
+
+    }
+    like_icon.className = `icon-heart${heart_bg} col-auto`;
+    if(document.getElementById('following')) {
+        like_icon.addEventListener('click', () => update_likes(post));
+    }else {
+        like_icon.addEventListener('click', () => force_login());
+    }
+    likes_row.append(like_icon);
 }
 
 function show_profile(creator_id){
